@@ -9,6 +9,7 @@ public struct TestFlightCommand: ParsableCommand {
         abstract: "Manage your beta testing program, including beta testers and groups, apps, and builds.",
         subcommands: [
             TestFlightAppsCommand.self,
+            TestFlightBetaAppReviewCommand.self,
             TestFlightBetaGroupCommand.self,
             TestFlightBetaTestersCommand.self,
             TestFlightBuildsCommand.self,

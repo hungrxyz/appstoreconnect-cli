@@ -706,6 +706,18 @@ class AppStoreConnectService {
         return PreReleaseVersion(output.preReleaseVersion, output.relationships)
     }
 
+    func submitBuildForBetaAppReview(
+        bundleId: String,
+        version: String,
+        buildNumber: String
+    ) throws {
+        let buildId = try getBuildIdFrom(bundleId: bundleId, buildNumber: buildNumber, preReleaseVersion: version)
+
+        try SubmitBuildForBetaAppReviewOperation(options: .init(buildId: buildId))
+            .execute(with: requestor)
+            .await()
+    }
+
     func listDevices(
         filterName: [String],
         filterPlatform: [Platform],
@@ -1190,7 +1202,7 @@ extension AppStoreConnectService {
         return (buildId, groupIds)
     }
 
-    private func getBuildIdFrom(
+    func getBuildIdFrom(
         bundleId: String,
         buildNumber: String,
         preReleaseVersion: String
